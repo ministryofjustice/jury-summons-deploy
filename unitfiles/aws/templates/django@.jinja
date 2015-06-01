@@ -1,0 +1,45 @@
+[Unit]
+Description=Jury Summons django service on port 8080
+
+# Requirements
+Requires=etcd2.service
+Requires=docker.service
+Wants=django-elb-presence{{ version }}@%i.service
+
+# Dependency ordering
+After=etcd2.service
+After=docker.service
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+
+# Change killmode from "control-group" to "none" to let Docker remove
+# work correctly.
+KillMode=none
+
+# Get CoreOS environmental variables
+EnvironmentFile=/etc/environment
+
+Restart=always
+
+# Pre-start and Start
+## Directives with "=-" are allowed to fail without consequence
+ExecStartPre=-/usr/bin/docker kill django{{ version }}.%i
+ExecStartPre=-/usr/bin/docker rm django{{ version }}.%i
+ExecStartPre=/usr/bin/docker pull quay.io/kerin/jsum-web:{{ web_tag }}
+ExecStartPre=/usr/bin/docker run -t quay.io/kerin/jsum-web:{{ web_tag }} \
+    /bin/bash -c \
+     '/usr/local/bin/confd -onetime -backend etcd -node http://${COREOS_PRIVATE_IPV4}:2379 \
+      && /usr/bin/python manage.py migrate'
+ExecStart=/usr/bin/docker run --name django{{ version }}.%i \
+    -e "COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4}" \
+    quay.io/kerin/jsum-web:{{ web_tag }} /usr/bin/python2 /usr/local/bin/supervisord -n -c /etc/supervisor/roles/web.conf
+
+# Stop
+ExecStop=/usr/bin/docker stop django{{ version }}.%i
+
+[X-Fleet]
+# Don't schedule on the same machine as other Postgres instances
+Conflicts=django{{ version }}@*.service
+MachineMetadata=role=worker

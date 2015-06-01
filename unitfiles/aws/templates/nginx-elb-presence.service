@@ -1,0 +1,35 @@
+[Unit]
+Description=Nginx ELB Presence Service
+
+# Requirements
+Requires=etcd2.service
+Requires=docker.service
+BindsTo=django-nginx.service
+PartOf=django-nginx.service
+
+# Dependency ordering
+After=etcd2.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+KillMode=none
+EnvironmentFile=/etc/environment
+
+ExecStartPre=-/usr/bin/docker kill %p.%i
+ExecStartPre=-/usr/bin/docker rm %p.%i
+ExecStartPre=/usr/bin/docker pull quay.io/r4vi/nginx_elb_presence
+ExecStart=/bin/bash -c '\
+    /usr/bin/docker run --name %p.%i \
+        -e "AWS_ACCESS_KEY=$(etcdctl get /services/public-elb/iam_access_key)" \
+        -e "AWS_SECRET_KEY=$(etcdctl get /services/public-elb/iam_secret_access_key)" \
+        -e "AWS_REGION=$(etcdctl get /aws/region)" \
+        -e "ELB_NAME=$(etcdctl get /services/public-elb/name)" \
+        -e "CURRENT_DNS=$(etcdctl get /aws/dns/current)" \
+        quay.io/r4vi/nginx_elb_presence'
+
+ExecStop=/usr/bin/docker stop %p.%i
+
+[X-Fleet]
+Global=true
+MachineMetadata=role=worker

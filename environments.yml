@@ -1,0 +1,17 @@
+base:
+  CoreOSClusterSize: 3
+  EtcdClusterSize: 3
+  SSHBastionInstanceType: t2.micro
+  NATInstanceType: t2.small
+  EtcdClusterInstanceType: t2.micro
+  CoreOSInstanceType: t2.medium
+  region: eu-west-1
+
+environments:
+  test:
+    CoreOSClusterSize: 3
+    EtcdClusterSize: 3
+    CoreOSInstanceType: t2.small
+    DBUsername: test
+    DBPassword: testtesttest
+    DBName: changeme

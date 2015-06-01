@@ -1,0 +1,44 @@
+#cloud-config
+users:
+  - name: kerin
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA9MhPhZt//2Lfwg3NmGPVN04xU5lnMEHQYfBsSHoGAiMBkGpZPIZ52nO2QFk/dwfuF9LaovwgU0o9MOsk1e4npwKtqKETJv66Uxp+DxmeBhMTWbaOlMZ91kJVpDfIIh6N0klcllzC8aDgvC8HhomnKI96eaRjd8hGbj65D2VN6Uan8BpMiRqDHLisjwPUAKWnQM1TQ0umK4oVYuPMj1sdxnpnqbYP608xyG9AIskK6V/cy11KbV5m02YupiVLfe4gGgiPB+9KncZrmnEYC+0QdQRVnUp3jOa0YKjzBRcLS3AmfHaDzfUxrB7CAdcL9o3jS1wh++HrQ4Ctm6SCPMZHAw== kerin@Kerin-Cosfords-MacBook-Pro-15.local
+  - name: marco
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS8EOwL0eYzVOezIZQPVDDERcfADUktAodzGWmp+ZAob1Iz1/+Go5/v97+/z53E70/iOxtjjHZVeCelBvaPvS7cI6IIcl1hKw9F8TV6pTO1rFcppI2e3RkUNudwA3lS4cMt3fzf+O0GP4eT3xFM4S3kI9CcxILHRi4J7zqwYkTxCCS8eN0xgjQukA0vq3emFsUX9hjS8x6gJUjNjjDYA4V1mDZ9g+qcIrkIbiRbRzL4b3yAC0fnc9//VZ3VDkr0rsVCMxsbMie1G1FjaF69BY/0i2rVMudZ13V7Qr/b5B5gDQdFbut53M8cZ9siDWnLneGivgCc1Z6iGrfUcmvO+GV
+  - name: rkotecha
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7ct62Lbqq+gQuhe7GyLKuP+ItZk6LcdOsCTq/Df0ARpkVRHIQ3x3OkQg0c5OupNkV2HGkHEWtAPm4f9oMpKXD20a6rmRwm9hZ/0+LMnyf4IQXFpXx1WlXBACYaK+Vs2tyJYXJLCjnW/ueGbLebCQiYB+IdyCiWHI2joN2g21Rjff8ssbY3957XXVKxwfJX1KEALG+s1TrQFukRp6Wi0p1aqBAvv0Ch0xf3X7SHK6VOyEhnLQdo6N4tnz3gFK/2T68l4WqoSyIEFQ3imZrwMAURWORGAIAojvXd5bW9nNMgJSzZIW9earG1HV2XY/uJF9+iatYFj8txWJ88nHfSMOTw==
+  - name: dsmith
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDB4wrV6gW9fRx8qKVR8C32yw4vTBoMfmfmO/3ch9QWY9cPyn302TNzjYhuU/y72X8VGM7rjfCs5yUN9ZBURoUOaL/rApKik056Q7xUddeB4BP8BoznRDorUTonKGvM/I6KGhxuoZWdm8bj8mtM1O3E/eEwnOS2jtvghdPXTfA02H89ACn3CvgPxmuqNcJqwNwZma6abF9XwnCjnkAp1qKLfJjLnkFByyJ/QETgZiq8RLR56Pe/Pf4hr4yiZPeiBlch6ogtRAuokgsNFb1iAC1KZrzisOPZpHcoIlJ+I3wPSUJ/+0xihX168NYqMt+sMX2IYJznSywJ54N+Gjismoc3
+  - name: pidah
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAwH9nxAJPZvprwHOzntOriJtTmwWA/h23lTKGlR+jL2Ipyual2FUTxqkBu8u59eOUSkbVNFfc04F6DKVMYXnatkLXhC068+89b6vL+9e9GO8ttOJHTfANO0rQOjWFU83Ut6IL9dH+gXUnTUPxXddvvlqB8WW3t9qxvWi5VmPXCBE0SKa0a+auG90He118tOoyPrBif2dsTtphyjSjYgF+Tgc0uBM9Nh41zO2kuBw4KP/0ID+cZh8HtYEBEUeiOq0TpRmNI4S/u9W+rAmmc/n6YMhqeN/z5LuaTNajFQ0S7eGyAxm2dLZjCpwDAZhj7d9ZUcZrEdPaUDKxIR8J52zz
+  - name: teamcity
+    groups:
+      - sudo
+      - docker
+      - systemd-journal
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnGlFDChMaogllWY9DYhu9gzhRfB4wmEA/G+pLa8odcJxhLIM1tQedUR09xliCv+tZjmFhDucaf8G9151PCNvs0cjr7e4xplRsBM8405lVAceBcY/377s16HeJ8xGoBLOfwWlDMdsU0J9M+bUlsfFB0QbcgiAWIibV8HJCFy9152FI52xmcKkMx6CzKn+w8f8UM5mMfF7Tdwb6P+rO0cNGGEphGenkhN71Fi2J0/kFC/0ZWHDZfhG5NVtVSPD4Y5pkAxapxpuLIhnTlfX8n10dUS0dXHp5BqB33SJ0I1ppULqeZ2dp1/EWYK1biLzi4WYGRV4x4b9PdK+HrcOAqTraGaMCFL3DRgsDeuzptjxc0Y2fJKbuwewsc9OVR0kKPHMbi8AUYF1AU/QO4TlnvC6OkG1JA+mxHYbHqRSjxWPwwIER8t7B/LAAa9L2eFfKmgO5/8Wn1qrg2493OzHT/dhGlPEaRyBIDlYXs3xpXkRdt5Iu9g2lrG+kQTNfKb7tUAfdn/XKf5Rhxwd3Xy3smXzfI1YCJFf7Hcovn38M4T0Ro1fHOAWVhDuT/Tn6dnFcM5LfrM6qCVFLF28yvMyfDCW99a+zHQ1krI6UsNc3Dg8VhMCMM8ApGOS57S3hAVK45sA7SxdOrD1jqj071naCdNQKmOjTWK0QBGbl4zPBO/tHCw== teamcity@jurysummons.dsd.io

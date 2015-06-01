@@ -1,0 +1,30 @@
+[Unit]
+Description=Django nginx instance
+
+# Requirements
+Requires=etcd2.service
+Requires=docker.service
+
+# Dependency ordering
+After=etcd2.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+KillMode=none
+EnvironmentFile=/etc/environment
+
+ExecStartPre=-/usr/bin/docker kill %p.%i
+ExecStartPre=-/usr/bin/docker rm %p.%i
+ExecStartPre=/usr/bin/docker pull quay.io/r4vi/nginx_lb_confd:latest
+ExecStart=/bin/bash -c '\
+    /usr/bin/docker run --name %p.%i \
+        -e "COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4}" \
+        -p 8080:80 \
+        quay.io/r4vi/nginx_lb_confd:latest'
+
+ExecStop=/usr/bin/docker stop %p.%i
+
+[X-Fleet]
+Global=true
+MachineMetadata=role=worker

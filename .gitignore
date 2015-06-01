@@ -1,0 +1,14 @@
+*.pyc
+
+.DS_Store
+
+# IDEs
+*.sublime-project
+*.sublime-workspace
+
+# virtualenvs
+venv/
+env/
+
+
+unitfiles/aws/_build/

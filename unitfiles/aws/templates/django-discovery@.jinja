@@ -1,0 +1,42 @@
+[Unit]
+Description=Django discovery service
+
+# Requirements
+Requires=etcd2.service
+Wants=django{{ version }}@%i.service
+
+# Dependency ordering
+After=etcd2.service
+After=django{{ version }}@%i.service
+BindsTo=django{{version }}@%i.service
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+
+# Get CoreOS environmental variables
+EnvironmentFile=/etc/environment
+
+Restart=always
+
+# Start
+## Test whether service is accessible and then register useful information
+ExecStart=/bin/bash -c '\
+  while true; do \
+    export IP=$(/usr/bin/docker inspect --format "{% raw %}{{ .NetworkSettings.IPAddress }}{% endraw %}" django{{ version }}.%i); \
+    export status=$(curl -s -o /dev/null -w "%{http_code}" http://$IP); \
+    if [ $status -eq 200 ]; then \
+      etcdctl set /services/backends/{{ version }}/${COREOS_PRIVATE_IPV4}/django{{ version }}.@%i $IP --ttl 30; \
+    else \
+      etcdctl rm /services/backends/{{ version }}/${COREOS_PRIVATE_IPV4}/django{{ version }}.@%i; \
+    fi; \
+    sleep 20; \
+  done'
+
+# Stop
+ExecStop=/usr/bin/etcdctl rm /services/backends/${COREOS_PRIVATE_IPV4}/django{{ version }}.@%i
+
+[X-Fleet]
+# Schedule on the same machine as the associated django service
+X-ConditionMachineOf=django{{ version }}@%i.service
+MachineMetadata=role=worker
